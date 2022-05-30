@@ -31,7 +31,12 @@ public class TestServer {
         String msg1 = client2.sendMessage("NODE Placek");
         String msg2 = client2.sendMessage("VOTE Placek burmistrzAnna N blablabla");
         String msg3 = client2.sendMessage("NODE Jacek");
-        String msg4 = client2.sendMessage("VOTE Jacek wójtWaldemar Y blablabla");
+        String msg4 = client2.sendMessage("VOTE Jacek wójtWaldemar N blablabla");
+        String msg5 = client2.sendMessage("RESULT");
+
+        System.out.println(msg2);
+        System.out.println(msg5);
+
 
 
 

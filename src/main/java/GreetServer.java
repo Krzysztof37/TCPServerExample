@@ -92,11 +92,16 @@ public class GreetServer {
                             }
                         }
 
-                        if(array[0].equals("VOTE")){
+                        if(localTimeLoop.minusMinutes(1).isAfter(localTimeStart) && array[0].equals("VOTE")){
+                            out.println("Proba oddania głosu");
+                        }
+
+                        if(localTimeLoop.minusMinutes(1).isBefore(localTimeStart) && array[0].equals("VOTE")  ){
                             boolean change = true;
                             if(mapResults.get(array[1]+" "+array[2]) != null &&mapResults.get(array[1]+" "+array[2]).equals(array[3])){
                                 change = false;
                             }
+
                             mapResults.put(array[1]+" "+array[2], array[3]);
                             out.println("oddano głos");
                             if(change) {
