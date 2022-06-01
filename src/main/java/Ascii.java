@@ -54,6 +54,7 @@ public class Ascii {
     public static void main(String[] args) {
 
         asciiCode("ALA MA KOTA");
+        asciiCode("SAMOCHOD SAMOLOTdoda");
 
 
 
