@@ -9,7 +9,7 @@ public class TestServer {
     @Test
     public void voteTest() throws IOException {
         GreetClient client1 = new GreetClient();
-        client1.startConnection("127.0.0.1", 5017);
+        client1.startConnection("127.0.0.1", 5018);
 
         String msg0 = client1.sendMessage("NODE Wacek");
         String msg1 = client1.sendMessage("NEW Wacek burmistrzAnna Y wiadomosc");
@@ -27,15 +27,15 @@ public class TestServer {
     @Test
     public void voteTest2() throws IOException {
         GreetClient client2 = new GreetClient();
-        client2.startConnection("127.0.0.1", 5017);
+        client2.startConnection("127.0.0.1", 5018);
         String msg1 = client2.sendMessage("NODE Placek");
         String msg2 = client2.sendMessage("VOTE Placek burmistrzAnna N blablabla");
         String msg3 = client2.sendMessage("NODE Jacek");
         String msg4 = client2.sendMessage("VOTE Jacek wójtWaldemar N blablabla");
-        String msg5 = client2.sendMessage("RESULT");
+        //String msg5 = client2.sendMessage("RESULT");
 
         System.out.println(msg2);
-        System.out.println(msg5);
+        //System.out.println(msg5);
 
 
 
@@ -45,9 +45,10 @@ public class TestServer {
     @Test
     public void voteTest3() throws IOException {
         GreetClient client3 = new GreetClient();
-        client3.startConnection("127.0.0.1",5017);
+        client3.startConnection("127.0.0.1",5018);
         String msg1 = client3.sendMessage("NODE Paweł");
-        String msg2 = client3.sendMessage("VOTE Paweł burmistrzAnna Y blablabla");
+        String msg2 = client3.sendMessage("VOTE Paweł burmistrzAnna N blablabla");
+
         String msg3 = client3.sendMessage("RESULT");
 
         System.out.println(msg3);

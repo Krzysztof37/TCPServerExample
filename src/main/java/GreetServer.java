@@ -1,10 +1,9 @@
 import java.io.*;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class GreetServer {
@@ -15,6 +14,9 @@ public class GreetServer {
     static Map<String, Integer> mapResults2 = new HashMap<>();
     static LocalTime localTimeStart = LocalTime.now();
     static List<Socket> clients = new ArrayList<>();
+
+
+
 
 
     public void start(int port) throws IOException {
@@ -64,11 +66,12 @@ public class GreetServer {
                         System.out.println("zakończono głosowanie");
                         break;
                     }
+                    String array2[] = inputLine.split(" ");
+                   String array[] = Ascii.asciiCode(inputLine).split(" ");
 
-                    String array[] = inputLine.split(" ");
 
-                    if (array[0].equals("NODE")) {
-                        identify.add(array[1]);
+                    if (array[0].equals("78796869")) {
+                        identify.add(array2[1]);
                         out.println("zarejestrowano węzeł");
                     }
 
@@ -77,50 +80,50 @@ public class GreetServer {
 
                         String key = s;
 
-                        if(array.length > 1 && key.equals(array[1])){
+                        if(array.length > 1 && key.equals(array2[1])){
 
 
-                        if(array[0].equals("NEW")) {
+                        if(array[0].equals("786987")) {
 
-                            mapResults.put(array[1]+" "+array[2], array[3]);
+                            mapResults.put(array2[1]+" "+array2[2], array2[3]);
                             out.println("Zarejestrowano głosowanie");
 
-                            if(array[3].equals("Y")){
-                                mapResults2.put(array[2], 1);
-                            }else if(array[3].equals("N")){
-                                mapResults2.put(array[2], -1);
+                            if(array2[3].equals("Y")){
+                                mapResults2.put(array2[2], 1);
+                            }else if(array2[3].equals("N")){
+                                mapResults2.put(array2[2], -1);
                             }
                         }
 
-                        if(localTimeLoop.minusMinutes(1).isAfter(localTimeStart) && array[0].equals("VOTE")){
+                        if(localTimeLoop.minusMinutes(1).isAfter(localTimeStart) && array[0].equals("86798469")){
                             out.println("Proba oddania głosu");
                         }
 
-                        if(localTimeLoop.minusMinutes(1).isBefore(localTimeStart) && array[0].equals("VOTE")  ){
+                        if(localTimeLoop.minusMinutes(1).isBefore(localTimeStart) && array[0].equals("86798469")  ){
                             boolean change = true;
-                            if(mapResults.get(array[1]+" "+array[2]) != null &&mapResults.get(array[1]+" "+array[2]).equals(array[3])){
+                            if(mapResults.get(array2[1]+" "+array2[2]) != null &&mapResults.get(array2[1]+" "+array2[2]).equals(array2[3])){
                                 change = false;
                             }
 
-                            mapResults.put(array[1]+" "+array[2], array[3]);
+                            mapResults.put(array2[1]+" "+array2[2], array2[3]);
                             out.println("oddano głos");
                             if(change) {
-                                if (array[3].equals("Y")) {
-                                    mapResults2.put(array[2], mapResults2.get(array[2]) + 1);
+                                if (array2[3].equals("Y")) {
+                                    mapResults2.put(array2[2], mapResults2.get(array2[2]) + 1);
 
-                                } else if (array[3].equals("N")) {
-                                    mapResults2.put(array[2], mapResults2.get(array[2]) - 1);
+                                } else if (array2[3].equals("N")) {
+                                    mapResults2.put(array2[2], mapResults2.get(array2[2]) - 1);
 
                                 }
                             }
                         }
 
-                        if(array[0].equals("PING")){
+                        if(array[0].equals("80737871")){
                             out.println("PONG");
 
                         }
 
-                        if(array[0].equals("PONG")){
+                        if(array[0].equals("80797871")){
                             out.println("Ignore this ;)");
                         }
 
@@ -146,7 +149,7 @@ public class GreetServer {
 
         public static void main(String[] args) throws IOException {
             GreetServer server = new GreetServer();
-            server.start(5017);
+            server.start(5018);
         }
 
     }

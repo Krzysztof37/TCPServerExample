@@ -36,7 +36,7 @@ public class Ascii {
 
                 if(letter == key){
 
-                    result = result + valueAscii+";";
+                    result = result + valueAscii;
                 }
 
 
@@ -46,15 +46,17 @@ public class Ascii {
 
         }
 
+        result = result.replaceAll("32", " ");
         System.out.println(result);
+
         return result;
     }
 
 
     public static void main(String[] args) {
 
-        asciiCode("ALA MA KOTA");
-        asciiCode("SAMOCHOD SAMOLOTdoda");
+//        asciiCode("ALA MA KOTA");
+        asciiCode("PONG");
 
 
 
