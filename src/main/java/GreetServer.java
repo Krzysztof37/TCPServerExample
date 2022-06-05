@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -52,10 +51,20 @@ public class GreetServer {
 
                 String inputLine;
 
-                while ((inputLine = in.readLine()) != null) {
+                while (true) {
 
-
+                    inputLine = in.readLine();
                     LocalTime localTimeLoop = LocalTime.now();
+
+                   while(inputLine == null && localTimeLoop.minusMinutes(1).isBefore(localTimeStart) ){
+                       localTimeLoop = LocalTime.now();
+                       inputLine = in.readLine();
+                   }
+
+                   if(inputLine == null){
+                       inputLine = "";
+                   }
+
 
                     if(localTimeLoop.minusMinutes(1).isBefore(localTimeStart) && inputLine.equals("RESULT")){
                         out.println("Glosowanie trwa");
@@ -66,8 +75,9 @@ public class GreetServer {
                         System.out.println("zakończono głosowanie");
                         break;
                     }
+
                     String array2[] = inputLine.split(" ");
-                   String array[] = Ascii.asciiCode(inputLine).split(" ");
+                    String array[] = Ascii.asciiCode(inputLine).split(" ");
 
 
                     if (array[0].equals("78796869")) {
@@ -108,15 +118,13 @@ public class GreetServer {
                             mapResults.put(array2[1]+" "+array2[2], array2[3]);
                             out.println("oddano głos");
                             if(change) {
+
                                 if (array2[3].equals("Y")) {
                                     mapResults2.put(array2[2], mapResults2.get(array2[2]) + 1);
 
                                 } else if (array2[3].equals("N")) {
 
-                                    if(mapResults2.get(array2[2])>0) {
-
-                                        mapResults2.put(array2[2], mapResults2.get(array2[2]) - 1);
-                                    }
+                                    mapResults2.put(array2[2], mapResults2.get(array2[2]) - 1);
 
                                 }
                             }
@@ -134,29 +142,27 @@ public class GreetServer {
                         }
                     }
 
-                    if(localTimeLoop.minusMinutes(1).isAfter(localTimeStart) && inputLine.equals("RESULTTOALL")){
+                    if(localTimeLoop.minusMinutes(1).isAfter(localTimeStart)){
                         for (Socket z : clients) {
                             if (z != null) {
                                 PrintStream outToClient = null;
                                 try {
                                     outToClient = new PrintStream(z.getOutputStream());
-                                    outToClient.println("wysylanie do wszystkich klientów "+ z.getKeepAlive());
-                                    System.out.println("blok try "+ outToClient);
+                                    outToClient.println("wyniki: "+mapResults2+" liczba głosujących: "+ identify.size());
+
                                 } catch (IOException e) {
-                                    System.out.println("Caught an IO exception trying "
-                                            + "to send to TCP connections");
+                                    System.out.println("wystąpił błąð");
                                     e.printStackTrace();
                                 }
                             }
                         }
+
+                        break;
+
                     }
 
 
                 }
-
-
-
-
 
 
                 System.out.println(mapResults);

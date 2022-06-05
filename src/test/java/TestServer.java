@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,14 +26,29 @@ public class TestServer {
 
 
     @Test
-    public void voteTest2() throws IOException {
+    public void voteTest2() throws IOException, InterruptedException {
         GreetClient client2 = new GreetClient();
         client2.startConnection("127.0.0.1", 5018);
         String msg1 = client2.sendMessage("NODE Placek");
         String msg2 = client2.sendMessage("VOTE Placek burmistrzAnna N blablabla");
         String msg3 = client2.sendMessage("NODE Jacek");
-        String msg4 = client2.sendMessage("VOTE Jacek wójtWaldemar N blablabla");
-        //String msg5 = client2.sendMessage("RESULT");
+        String msg4 = client2.sendMessage("VOTE Jacek wójtWaldemar Y blablabla");
+
+        LocalTime timeStart = LocalTime.now();
+
+        while(true){
+            LocalTime timeLoop = LocalTime.now();
+            if(timeLoop.minusMinutes(2).isAfter(timeStart)){
+                break;
+            }
+
+            String results = client2.sendMessage("");
+            System.out.println(results);
+            System.out.println("test 2, czekam na wyniki");
+            Thread.sleep(1000);
+
+        }
+
 
         System.out.println(msg2);
         //System.out.println(msg5);
@@ -43,18 +59,42 @@ public class TestServer {
     }
 
     @Test
-    public void voteTest3() throws IOException {
+    public void voteTest3() throws IOException, InterruptedException {
         GreetClient client3 = new GreetClient();
         client3.startConnection("127.0.0.1",5018);
         String msg1 = client3.sendMessage("NODE Paweł");
         String msg2 = client3.sendMessage("VOTE Paweł burmistrzAnna N blablabla");
+        LocalTime timeStart = LocalTime.now();
+        while(true){
+            LocalTime timeLoop = LocalTime.now();
+            if(timeLoop.minusMinutes(2).isAfter(timeStart)){
+                break;
+            }
 
-        String msg3 = client3.sendMessage("RESULT");
+            String results = client3.sendMessage("");
+            System.out.println(results);
+            System.out.println("test 2, czekam na wyniki");
+            Thread.sleep(1000);
 
-        System.out.println(msg3);
+        }
 
     }
 
+    @Test
+    public void voteTest4() throws IOException, InterruptedException {
+        GreetClient client4 = new GreetClient();
+        client4.startConnection("127.0.0.1", 5018);
+        String msg1 = client4.sendMessage("NODE Kasia");
+        String msg2 = client4.sendMessage("VOTE Placek burmistrzAnna Y blablabla");
+        String msg3 = client4.sendMessage("NODE Basia");
+        String msg4 = client4.sendMessage("VOTE Jacek wójtWaldemar Y blablabla");
+
+        System.out.println(msg1);
+        System.out.println(msg2);
+        System.out.println(msg3);
+        System.out.println(msg4);
+
+    }
 
 
 }
