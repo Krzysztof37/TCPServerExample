@@ -37,19 +37,19 @@ public class TestServer {
         LocalTime timeStart = LocalTime.now();
 
         while(true){
-            LocalTime timeLoop = LocalTime.now();
-            if(timeLoop.minusMinutes(2).isAfter(timeStart)){
-                break;
-            }
 
             String results = client2.sendMessage("");
-            System.out.println(results);
+
+            if(!results.equals("")){
+                System.out.println(results);
+                break;
+            }
             System.out.println("test 2, czekam na wyniki");
             Thread.sleep(1000);
 
         }
 
-
+        System.out.println("petla zakonczona");
         System.out.println(msg2);
         //System.out.println(msg5);
 
@@ -66,14 +66,15 @@ public class TestServer {
         String msg2 = client3.sendMessage("VOTE Paweł burmistrzAnna N blablabla");
         LocalTime timeStart = LocalTime.now();
         while(true){
-            LocalTime timeLoop = LocalTime.now();
-            if(timeLoop.minusMinutes(2).isAfter(timeStart)){
+
+            String results = client3.sendMessage("");
+
+            if(!results.equals("")){
+                System.out.println(results);
                 break;
             }
 
-            String results = client3.sendMessage("");
-            System.out.println(results);
-            System.out.println("test 2, czekam na wyniki");
+            System.out.println("czekam na wyniki");
             Thread.sleep(1000);
 
         }

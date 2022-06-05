@@ -114,7 +114,7 @@ public class GreetServer {
                             if(mapResults.get(array2[1]+" "+array2[2]) != null &&mapResults.get(array2[1]+" "+array2[2]).equals(array2[3])){
                                 change = false;
                             }
-
+// miejsce na kod wysylajacy info do klientow o oddaniu glosu przez wezel
                             mapResults.put(array2[1]+" "+array2[2], array2[3]);
                             out.println("oddano głos");
                             if(change) {
