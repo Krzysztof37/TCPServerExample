@@ -112,7 +112,11 @@ public class GreetServer {
                                     mapResults2.put(array2[2], mapResults2.get(array2[2]) + 1);
 
                                 } else if (array2[3].equals("N")) {
-                                    mapResults2.put(array2[2], mapResults2.get(array2[2]) - 1);
+
+                                    if(mapResults2.get(array2[2])>0) {
+
+                                        mapResults2.put(array2[2], mapResults2.get(array2[2]) - 1);
+                                    }
 
                                 }
                             }
@@ -130,16 +134,38 @@ public class GreetServer {
                         }
                     }
 
+                    if(localTimeLoop.minusMinutes(1).isAfter(localTimeStart) && inputLine.equals("RESULTTOALL")){
+                        for (Socket z : clients) {
+                            if (z != null) {
+                                PrintStream outToClient = null;
+                                try {
+                                    outToClient = new PrintStream(z.getOutputStream());
+                                    outToClient.println("wysylanie do wszystkich klientów "+ z.getKeepAlive());
+                                    System.out.println("blok try "+ outToClient);
+                                } catch (IOException e) {
+                                    System.out.println("Caught an IO exception trying "
+                                            + "to send to TCP connections");
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+
+
                 }
+
+
+
+
 
 
                 System.out.println(mapResults);
                 System.out.println("Głosy pozytywne:");
                 System.out.println(mapResults2);
 
-                    in.close();
-                    out.close();
-                    clientSocket.close();
+//                    in.close();
+//                    out.close();
+//                    clientSocket.close();
 
             } catch (IOException e) {
                 e.printStackTrace();
