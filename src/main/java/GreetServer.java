@@ -112,7 +112,10 @@ public class GreetServer {
                                     mapResults2.put(array2[2], mapResults2.get(array2[2]) + 1);
 
                                 } else if (array2[3].equals("N")) {
-                                    mapResults2.put(array2[2], mapResults2.get(array2[2]) - 1);
+
+                                    if(mapResults2.get(array2[2])>0) {
+                                        mapResults2.put(array2[2], mapResults2.get(array2[2]) - 1);
+                                    }
 
                                 }
                             }
